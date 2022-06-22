@@ -1,0 +1,54 @@
+body {
+    width: 100%;
+    background-color: #F3F3F3;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    display: flex;
+    flex-direction: column;
+}
+.autentication-screen {
+    width: 100%;
+    background-color: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.autentication-screen img:first-child {
+    width: 130px;
+    height: 92px;
+    margin-top: 72px;
+    margin-bottom: 94px;
+}
+.username-login {
+    width: 261px;
+    height: 54px;
+    font-size: 18px;
+    line-height: 25px;
+    text-align: center;
+    color: #AEAEAE;
+    border: 1px solid #D7D7D7;
+    border-radius: 4px;
+    margin-bottom: 15px;
+}
+.submit-user {
+    width: 109px;
+    height: 45px;
+    background-color: #E7E7E7;
+    font-size: 18px;
+    line-height: 25px;
+    text-align: center;
+    color: #696969;
+    border: none;
+    border-radius: 9px;
+}
+.autentication-screen img:nth-child(4) {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 20px;
+}
+
+h2 {
+    font-size: 16px;
+    line-height: 19px;
+    color: #000000;
+}
