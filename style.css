@@ -106,7 +106,7 @@ h2 {
 }
 .header ion-icon {
     color: #000000;
-    font-size: 42px;
+    font-size: 45px;
 }
 .chat {
     width: 100%;
@@ -120,9 +120,35 @@ h2 {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 22px;
+    padding: 0 18px;
     position: fixed;
     bottom: 0;
     right: 0;
     left: 0;
+    box-sizing: border-box;
+}
+.write-message {
+    width: calc(100vw - 82px);
+    height: 30px;
+    color: #000000;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21px;
+    border: none;
+    display: flex;
+    align-items: center;
+}
+.write-message::placeholder {
+    font-style: italic;
+    border: none;
+    outline: none;
+    focus: none;
+}
+.write-message:focus {
+    outline: none;
+}
+
+.footer ion-icon {
+    color: #000000;
+    font-size: 32px;
 }
