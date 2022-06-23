@@ -12,10 +12,10 @@
     <title>Bate-Papo Uol</title>
 </head>
 <body>
-    <div class="autentication-screen autenticaded">
+    <div class="autentication-screen">
         <img src="./midia/UOL-logo.png" alt="logo do bate-papo da UOL">
         <input class="username-login" type="text" name="user" placeholder="Digite seu nome">
-        <input class="submit-user" type="submit" value="Entrar"></input>
+        <input class="submit-user" type="submit" value="Entrar" onclick="checkNameRequest()">
         <img src="./midia/loading-dots.svg" alt="carregando">
         <h2>Entrando...</h2>
     </div>
@@ -36,6 +36,7 @@
     </div>
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

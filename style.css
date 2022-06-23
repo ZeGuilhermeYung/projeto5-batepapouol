@@ -42,13 +42,21 @@ h2 {
 .username-login {
     width: 261px;
     height: 54px;
+    color: #000000;
+    font-size: 18px;
+    line-height: 25px;
+    border: 1px solid #D7D7D7;
+    border-radius: 4px;
+    margin-bottom: 15px;
+}
+.username-login::placeholder {
     font-size: 18px;
     line-height: 25px;
     text-align: center;
     color: #AEAEAE;
-    border: 1px solid #D7D7D7;
-    border-radius: 4px;
-    margin-bottom: 15px;
+}
+.username-login:focus {
+    outline: none;
 }
 .submit-user {
     width: 109px;
@@ -60,6 +68,12 @@ h2 {
     color: #696969;
     border: none;
     border-radius: 9px;
+}
+.submit-user:active {
+    box-shadow: inset 0 0 10px gray;
+}
+.submit-user:focus {
+    outline: none;
 }
 .autentication-screen img:nth-child(4) {
     width: 100px;
@@ -142,7 +156,6 @@ h2 {
     font-style: italic;
     border: none;
     outline: none;
-    focus: none;
 }
 .write-message:focus {
     outline: none;
