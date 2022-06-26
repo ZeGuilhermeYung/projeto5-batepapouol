@@ -23,7 +23,7 @@
     <div class="chat-screen locked">
         <div class="header">
             <img src="./midia/UOL-logo.png" alt="logo do bate-papo da UOL">
-            <ion-icon name="people"></ion-icon>
+            <ion-icon name="people" onclick="openSideMenu();"></ion-icon>
         </div>
         <div class="chat"></div>
         <div class="footer">
@@ -31,18 +31,18 @@
             <ion-icon name="paper-plane-outline"></ion-icon>
         </div>
     </div>
-    <div class="options-privacy-messages">
-        <div class="return-chat-area"></div>
+    <div class="options-privacy-messages locked">
+        <div class="return-chat-area" onclick="closeSideMenu();"></div>
         <div class="side-options-menu">
             <h1>Escolha um contato<br>para enviar mensagem:</h1>
             <div class="online-users">
-                <div class="all-participants"><ion-icon name="people"></ion-icon><h2>Todos</h2><ion-icon class="mark-user" name="checkmark"></ion-icon></div>
-                <div class="participant"><ion-icon name="person-circle"></ion-icon><h2>José Guilherme Ribeiro Yung</h2><ion-icon class="mark-user" name="checkmark"></ion-icon></div>
+                <div class="all-participants selected" onclick="selectUser(this);"><ion-icon name="people"></ion-icon><h2>Todos</h2><ion-icon class="mark-user" name="checkmark"></ion-icon></div>
+                <div class="participant" onclick="selectUser(this);"><ion-icon name="person-circle"></ion-icon><h2>José Guilherme Ribeiro Yung</h2><ion-icon class="mark-user" name="checkmark"></ion-icon></div>
             </div>
             <h1>Escolha a visibilidade:</h1> 
             <div class="privacy-message-options">
-                <div class="visibility public"><ion-icon name="lock-open"></ion-icon><h2>Público</h2><ion-icon class="mark-privacy" name="checkmark"></ion-icon></div>
-                <div class="visibility private"><ion-icon name="lock-closed"></ion-icon><h2>Reservadamente</h2><ion-icon class="mark-privacy" name="checkmark"></ion-icon></div>
+                <div class="visibility public selected" onclick="selectPrivacy(this);"><ion-icon name="lock-open"></ion-icon><h2>Público</h2><ion-icon class="mark-privacy" name="checkmark"></ion-icon></div>
+                <div class="visibility private" onclick="selectPrivacy(this);"><ion-icon name="lock-closed"></ion-icon><h2>Reservadamente</h2><ion-icon class="mark-privacy" name="checkmark"></ion-icon></div>
             </div>
         </div>   
     </div>

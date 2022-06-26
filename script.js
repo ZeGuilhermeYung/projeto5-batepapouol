@@ -55,6 +55,7 @@ function outOfRoom (absence) {
         clearInterval(userPresence);
         document.querySelector(".autentication-screen.autenticaded").classList.remove("autenticaded");
         document.querySelector(".chat-screen").classList.add("locked");
+        document.querySelector(".options-privacy-messages").classList.add("locked");
     }
 }
 
@@ -94,4 +95,26 @@ function renderMessages (arrMessages) {
             </div>`;
         }
     }
+}
+
+function openSideMenu () {
+    document.querySelector(".options-privacy-messages.locked").classList.remove("locked");
+}
+function closeSideMenu () {
+    document.querySelector(".options-privacy-messages").classList.add("locked");
+}
+
+function selectUser (userClicked) {
+    if (document.querySelector(".all-participants.selected") !== null) {
+        document.querySelector(".all-participants.selected").classList.remove("selected");
+    }
+    if (document.querySelector(".participant.selected") !== null) {
+        document.querySelector(".participant.selected").classList.remove("selected");
+    }
+    userClicked.classList.add("selected");
+}
+
+function selectPrivacy (privacyClicked) {
+    document.querySelector(".visibility.selected").classList.remove("selected");
+    privacyClicked.classList.add("selected");
 }
