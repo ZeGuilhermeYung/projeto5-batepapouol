@@ -66,9 +66,7 @@ function getMessages () {
 function displayMessages (allMessages) {
     let lastMessage = currentMessages[currentMessages.length - 1];
     document.querySelector(".chat").innerHTML = "";
-    console.log(lastMessage);
     currentMessages = allMessages.data;
-    console.log(currentMessages[currentMessages.length - 1]);
     renderMessages(currentMessages);
     if ((lastMessage.from != currentMessages[currentMessages.length - 1].from) || (lastMessage.time != currentMessages[currentMessages.length - 1].time)) {
         document.querySelector(".chat .text:last-child").scrollIntoView();
