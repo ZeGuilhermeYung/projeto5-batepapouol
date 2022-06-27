@@ -85,24 +85,23 @@ function displayMessages (allMessages) {
 
 function renderMessages (arrMessages) {
     for (let i = 0; i < arrMessages.length; i++) {
-        let convertTimezone = arrMessages[i].time;
-        adjustTimezone (convertTimezone);
+        let newTime = adjustTimezone (arrMessages[i].time);
         if (arrMessages[i].type === "status") {
             document.querySelector(".chat").innerHTML += 
             `<div class="text ${arrMessages[i].type}">
-                <h3><em>(${convertTimezone})</em><strong>${arrMessages[i].from}  </strong>${arrMessages[i].text}</h3>
+                <h3><em>(${newTime})</em><strong>${arrMessages[i].from}  </strong>${arrMessages[i].text}</h3>
             </div>`;
         }
         if (arrMessages[i].type === "message") {
             document.querySelector(".chat").innerHTML += 
             `<div class="text ${arrMessages[i].type}">
-                <h3><em>(${convertTimezone})</em><strong>${arrMessages[i].from}</strong> para <strong>Todos:  </strong>${arrMessages[i].text}</h3>
+                <h3><em>(${newTime})</em><strong>${arrMessages[i].from}</strong> para <strong>Todos:  </strong>${arrMessages[i].text}</h3>
             </div>`;
         }
         if ((arrMessages[i].type === "private_message") && (arrMessages[i].from === userName.name || arrMessages[i].to === userName.name)) {
             document.querySelector(".chat").innerHTML += 
             `<div class="text ${arrMessages[i].type}">
-                <h3><em>(${convertTimezone})</em><strong>${arrMessages[i].from}</strong> reservadamente para <strong>${arrMessages[i].to}:  </strong>${arrMessages[i].text}</h3>
+                <h3><em>(${newTime})</em><strong>${arrMessages[i].from}</strong> reservadamente para <strong>${arrMessages[i].to}:  </strong>${arrMessages[i].text}</h3>
             </div>`;
         }
     }
@@ -128,7 +127,8 @@ function adjustTimezone(messageTime) {
     }
     hour += messageTime.substr(2, 6);
     messageTime = hour;
-  }
+    return messageTime;
+}
 
 function getParticipants () {
     const promise = axios.get("https://mock-api.driven.com.br/api/v6/uol/participants");
