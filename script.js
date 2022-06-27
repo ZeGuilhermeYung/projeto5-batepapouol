@@ -15,6 +15,12 @@ function rotateImg () {
     }
     document.querySelector(".autentication-screen img:nth-child(4)").setAttribute("style", `transform: rotate(${rotateAngle}deg)`);
 }
+document.querySelector(".username-login").addEventListener("keypress", function(e) {
+    if(e.key === "Enter") {
+        e.preventDefault();
+        document.querySelector(".submit-user").click();
+    }
+  });
 
 function checkNameRequest () {
     document.querySelector(".autentication-screen").classList.add("loading");
@@ -176,25 +182,27 @@ function selectPrivacy (privacyClicked) {
 
 function sendMessage () {
     let messageToSend;
-    if ((document.querySelector(".participant.selected") != undefined) && (document.querySelector(".visibility.private.selected") != undefined)) {
-        messageToSend = {
-            from: userName.name,
-            to: document.querySelector(".participant.selected h2").innerHTML,
-            text: document.querySelector(".write-message").value,
-            type: "private_message"
+    if (document.querySelector(".write-message").value != "") {
+        if ((document.querySelector(".participant.selected") != undefined) && (document.querySelector(".visibility.private.selected") != undefined)) {
+            messageToSend = {
+                from: userName.name,
+                to: document.querySelector(".participant.selected h2").innerHTML,
+                text: document.querySelector(".write-message").value,
+                type: "private_message"
+            }
+        } else {
+            messageToSend = {
+                from: userName.name,
+                to: document.querySelector(".all-participants h2").innerHTML,
+                text: document.querySelector(".write-message").value,
+                type: "message"
+            }   
         }
-    } else {
-        messageToSend = {
-            from: userName.name,
-            to: document.querySelector(".all-participants h2").innerHTML,
-            text: document.querySelector(".write-message").value,
-            type: "message"
-        }   
+        const promise = axios.post("https://mock-api.driven.com.br/api/v6/uol/messages", messageToSend);
+        document.querySelector(".write-message").value = "";
+        promise.then(getMessages);
+        promise.catch(outOfRoom);
     }
-    const promise = axios.post("https://mock-api.driven.com.br/api/v6/uol/messages", messageToSend);
-    document.querySelector(".write-message").value = "";
-    promise.then(getMessages);
-    promise.catch(outOfRoom);
 }
 function outOfRoom (absence) {
     if (absence.response.status == 400) {
@@ -208,7 +216,7 @@ function outOfRoom (absence) {
             }, 3000)
     }
 }
-document.addEventListener("keypress", function(e) {
+document.querySelector(".write-message").addEventListener("keypress", function(e) {
     if(e.key === "Enter") {
         e.preventDefault();
         document.querySelector(".send-message-button").click();
