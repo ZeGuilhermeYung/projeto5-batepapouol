@@ -6,6 +6,9 @@ body {
     display: flex;
     flex-direction: column;
 }
+body.not-scrolling {
+    overflow: hidden;
+}
 
 
 /* ///////////////////Fontes//////////////////////////// */
@@ -261,7 +264,7 @@ strong {
     background-color: #FFFFFF;
     display: flex;
     flex-direction: column;
-   
+   box-sizing: border-box;
 }
 .side-options-menu h1 {
     height: 66px;
@@ -274,7 +277,14 @@ strong {
     margin-bottom: 4px;
 }
 .online-users {
+    height: auto;
     margin: 0 17px;
+    overflow-y: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+.online-users::-webkit-scrollbar {
+    display: none;
 }
 .online-users ion-icon {
     font-size: 25px;
@@ -296,7 +306,7 @@ strong {
     text-overflow: ellipsis;
 }
 .privacy-message-options {
-    margin: 0 20px;
+    margin: 0 20px 23px 20px;
 }
 .privacy-message-options ion-icon {
     font-size: 22px;

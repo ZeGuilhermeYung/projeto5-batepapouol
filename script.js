@@ -3,6 +3,7 @@ let rotateInterval;
 let userName;
 let userPresence;
 let refreshMessages;
+let refreshParticipants;
 let currentMessages = [];
 
 
@@ -31,6 +32,7 @@ function successResponse () {
     document.querySelector(".chat-screen.locked").classList.remove("locked");
     userPresence = setInterval(sendUserPresence, 5000);
     refreshMessages = setInterval(getMessages, 3000);
+    refreshParticipants = setInterval(getParticipants, 10000);
 }
 
 function errorResponse (error) {
@@ -97,11 +99,57 @@ function renderMessages (arrMessages) {
     }
 }
 
+function getParticipants () {
+    const promise = axios.get("https://mock-api.driven.com.br/api/v6/uol/participants");
+    promise.then(displayParticipants);
+}
+
+function displayParticipants (allParticipants) {
+    if (document.querySelector(".participant.selected") != undefined) {
+        privateSelected = document.querySelector(".participant.selected h2").innerHTML;
+        document.querySelector(".online-users").innerHTML = `
+        <div class="all-participants" onclick="selectUser(this);">
+            <ion-icon name="people"></ion-icon><h2>Todos</h2>
+            <ion-icon class="mark-user" name="checkmark"></ion-icon>
+        </div>
+        <div class="participant selected" onclick="selectUser(this);">
+            <ion-icon name="person-circle"></ion-icon><h2>${privateSelected}</h2>
+            <ion-icon class="mark-user" name="checkmark"></ion-icon>
+        </div>`;
+        for (let i = 0; i < allParticipants.data.length; i++) {
+            if ((allParticipants.data[i].name != userName.name) && (privateSelected != allParticipants.data[i].name)) {    
+                document.querySelector(".online-users").innerHTML += `
+                <div class="participant" onclick="selectUser(this);">
+                    <ion-icon name="person-circle"></ion-icon><h2>${allParticipants.data[i].name}</h2>
+                    <ion-icon class="mark-user" name="checkmark"></ion-icon>
+                </div>`;
+            }  
+        }
+    } else {
+        document.querySelector(".online-users").innerHTML = `
+        <div class="all-participants selected" onclick="selectUser(this);">
+            <ion-icon name="people"></ion-icon><h2>Todos</h2>
+            <ion-icon class="mark-user" name="checkmark"></ion-icon>
+        </div>`;
+        for (let i = 0; i < allParticipants.data.length; i++) {
+            if (allParticipants.data[i].name != userName.name) {    
+                document.querySelector(".online-users").innerHTML += `
+                <div class="participant" onclick="selectUser(this);">
+                    <ion-icon name="person-circle"></ion-icon><h2>${allParticipants.data[i].name}</h2>
+                    <ion-icon class="mark-user" name="checkmark"></ion-icon>
+                </div>`;
+            }  
+        }
+    } 
+}
+
 function openSideMenu () {
     document.querySelector(".options-privacy-messages.locked").classList.remove("locked");
+    document.querySelector("body").classList.add("not-scrolling");
 }
 function closeSideMenu () {
     document.querySelector(".options-privacy-messages").classList.add("locked");
+    document.querySelector("body").classList.remove("not-scrolling");
 }
 
 function selectUser (userClicked) {
