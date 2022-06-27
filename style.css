@@ -35,6 +35,9 @@ h4 {
     font-size: 14px;
     line-height: 25px;
     color: #505050;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 em {
     color: #AAAAAA;
@@ -332,7 +335,7 @@ strong {
     margin-bottom: 4px;
 }
 .online-users {
-    height: auto;
+    height: calc(100% - 288px);
     margin: 0 17px;
     overflow-y: scroll;
     -ms-overflow-style: none;
@@ -376,6 +379,7 @@ strong {
     opacity: 1;
 }
 .side-options-menu .log-out {
+
     width: auto;
     justify-content: space-evenly;
     margin: 0 20px 23px 20px;

@@ -85,26 +85,50 @@ function displayMessages (allMessages) {
 
 function renderMessages (arrMessages) {
     for (let i = 0; i < arrMessages.length; i++) {
+        let convertTimezone = arrMessages[i].time;
+        adjustTimezone (convertTimezone);
         if (arrMessages[i].type === "status") {
             document.querySelector(".chat").innerHTML += 
             `<div class="text ${arrMessages[i].type}">
-                <h3><em>(${arrMessages[i].time})</em><strong>${arrMessages[i].from}  </strong>${arrMessages[i].text}</h3>
+                <h3><em>(${convertTimezone})</em><strong>${arrMessages[i].from}  </strong>${arrMessages[i].text}</h3>
             </div>`;
         }
         if (arrMessages[i].type === "message") {
             document.querySelector(".chat").innerHTML += 
             `<div class="text ${arrMessages[i].type}">
-                <h3><em>(${arrMessages[i].time})</em><strong>${arrMessages[i].from}</strong> para <strong>Todos:  </strong>${arrMessages[i].text}</h3>
+                <h3><em>(${convertTimezone})</em><strong>${arrMessages[i].from}</strong> para <strong>Todos:  </strong>${arrMessages[i].text}</h3>
             </div>`;
         }
         if ((arrMessages[i].type === "private_message") && (arrMessages[i].from === userName.name || arrMessages[i].to === userName.name)) {
             document.querySelector(".chat").innerHTML += 
             `<div class="text ${arrMessages[i].type}">
-                <h3><em>(${arrMessages[i].time})</em><strong>${arrMessages[i].from}</strong> reservadamente para <strong>${arrMessages[i].to}:  </strong>${arrMessages[i].text}</h3>
+                <h3><em>(${convertTimezone})</em><strong>${arrMessages[i].from}</strong> reservadamente para <strong>${arrMessages[i].to}:  </strong>${arrMessages[i].text}</h3>
             </div>`;
         }
     }
 }
+
+function adjustTimezone(messageTime) {
+    let timezone = -3;
+    let dst = 1;
+    let daylightSaving = false;
+    let hour;
+    if (daylightSaving === false) {
+      hour = Number(messageTime.substr(0, 2)) + timezone;
+    } else {
+      hour = Number(messageTime.substr(0, 2)) + timezone + dst;
+    }
+    if (hour <= 0) {
+      hour += 12;
+    }
+    if (hour <= 10) {
+      hour = "0" + hour.toString();
+    } else {
+      hour = hour.toString();
+    }
+    hour += messageTime.substr(2, 6);
+    messageTime = hour;
+  }
 
 function getParticipants () {
     const promise = axios.get("https://mock-api.driven.com.br/api/v6/uol/participants");
