@@ -226,7 +226,9 @@ function outOfRoom (absence) {
     }
 }
 document.querySelector(".write-message").addEventListener("keypress", function(e) {
-    if(e.key === "Enter") {
+    if(e.key === "Enter" && e.shiftKey) {
+        document.querySelector(".write-message") += "\n";
+    } else if (e.key === "Enter") {
         e.preventDefault();
         document.querySelector(".send-message-button").click();
     }
