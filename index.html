@@ -23,12 +23,12 @@
     <div class="chat-screen locked">
         <div class="header">
             <img src="./midia/UOL-logo.png" alt="logo do bate-papo da UOL">
-            <ion-icon name="people" onclick="openSideMenu();"></ion-icon>
+            <ion-icon name="people" onclick="openSideMenu(); getParticipants()"></ion-icon>
         </div>
         <div class="chat"></div>
         <div class="footer">
             <input class="write-message" type="text" name="message" placeholder="Escreva aqui...">
-            <ion-icon name="paper-plane-outline"></ion-icon>
+            <ion-icon name="paper-plane-outline" onclick="sendMessage();"></ion-icon>
         </div>
     </div>
     <div class="options-privacy-messages locked">

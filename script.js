@@ -3,6 +3,7 @@ let rotateInterval;
 let userName;
 let userPresence;
 let refreshMessages;
+let lastMessage = [];
 let refreshParticipants;
 let currentMessages = [];
 
@@ -43,22 +44,14 @@ function errorResponse (error) {
             document.querySelector(".autentication-screen.loading").classList.remove("loading");
             document.querySelector(".autentication-screen img:nth-child(4)").removeAttribute("style", `transform: rotate(${rotateAngle}deg)`);
             clearInterval(rotateInterval);
-            }, 2000)
+            }, 3000)
     }
 }
 
 function sendUserPresence () {
     const presence = axios.post("https://mock-api.driven.com.br/api/v6/uol/status", userName);
     presence.then();
-    presence.catch(outOfRoom);
-}
-function outOfRoom (absence) {
-    if (absence.response.status == 400) {
-        clearInterval(userPresence);
-        document.querySelector(".autentication-screen.autenticaded").classList.remove("autenticaded");
-        document.querySelector(".chat-screen").classList.add("locked");
-        document.querySelector(".options-privacy-messages").classList.add("locked");
-    }
+    presence.catch();
 }
 
 function getMessages () {
@@ -67,13 +60,20 @@ function getMessages () {
 }
 
 function displayMessages (allMessages) {
-    let lastMessage = currentMessages[currentMessages.length - 1];
+    if (currentMessages.length != 0) {
+        lastMessage = currentMessages[currentMessages.length - 1];
+    }
     document.querySelector(".chat").innerHTML = "";
     currentMessages = allMessages.data;
     renderMessages(currentMessages);
-    if ((lastMessage.from != currentMessages[currentMessages.length - 1].from) || (lastMessage.time != currentMessages[currentMessages.length - 1].time)) {
+    if (lastMessage.length != 0) {
+        if ((lastMessage.from != currentMessages[currentMessages.length - 1].from) || 
+        (lastMessage.time != currentMessages[currentMessages.length - 1].time)) {
+            document.querySelector(".chat .text:last-child").scrollIntoView();
+        }
+    } else {
         document.querySelector(".chat .text:last-child").scrollIntoView();
-    } 
+    }  
 }
 
 function renderMessages (arrMessages) {
@@ -90,7 +90,7 @@ function renderMessages (arrMessages) {
                 <h3><em>(${arrMessages[i].time})</em><strong>${arrMessages[i].from}</strong> para <strong>Todos:  </strong>${arrMessages[i].text}</h3>
             </div>`;
         }
-        if ((arrMessages[i].type === "private_message") && (arrMessages[i].from === userName || arrMessages[i].to === userName)) {
+        if ((arrMessages[i].type === "private_message") && (arrMessages[i].from === userName.name || arrMessages[i].to === userName.name)) {
             document.querySelector(".chat").innerHTML += 
             `<div class="text ${arrMessages[i].type}">
                 <h3><em>(${arrMessages[i].time})</em><strong>${arrMessages[i].from}</strong> reservadamente para <strong>${arrMessages[i].to}:  </strong>${arrMessages[i].text}</h3>
@@ -165,4 +165,39 @@ function selectUser (userClicked) {
 function selectPrivacy (privacyClicked) {
     document.querySelector(".visibility.selected").classList.remove("selected");
     privacyClicked.classList.add("selected");
+}
+
+function sendMessage () {
+    let messageToSend;
+    if ((document.querySelector(".participant.selected") != undefined) && (document.querySelector(".visibility.private.selected") != undefined)) {
+        messageToSend = {
+            from: userName.name,
+            to: document.querySelector(".participant.selected h2").innerHTML,
+            text: document.querySelector(".write-message").value,
+            type: "private_message"
+        }
+    } else {
+        messageToSend = {
+            from: userName.name,
+            to: document.querySelector(".all-participants h2").innerHTML,
+            text: document.querySelector(".write-message").value,
+            type: "message"
+        }   
+    }
+    const promise = axios.post("https://mock-api.driven.com.br/api/v6/uol/messages", messageToSend);
+    document.querySelector(".write-message").value = "";
+    promise.then(getMessages);
+    promise.catch(outOfRoom);
+}
+function outOfRoom (absence) {
+    if (absence.response.status == 400) {
+        rotateInterval = setInterval(rotateImg, 150);
+        document.querySelector(".autentication-screen").classList.remove("autenticaded");
+        document.querySelector(".autentication-screen").classList.add("loading");
+        document.querySelector(".chat-screen").classList.add("locked");
+        document.querySelector(".autentication-screen.loading h2").innerHTML = `Você foi desconectado.<br>Retornando a tela de login`;
+        setTimeout(() => {
+            window.location.reload()
+            }, 3000)
+    }
 }
