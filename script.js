@@ -37,6 +37,7 @@ function successResponse () {
     document.querySelector(".autentication-screen img:nth-child(4)").removeAttribute("style", `transform: rotate(${rotateAngle}deg)`);
     clearInterval(rotateInterval);  
     document.querySelector(".chat-screen.locked").classList.remove("locked");
+    document.querySelector(".header h4").innerHTML = `Bem-vindo(a),<br>${userName.name}!`
     userPresence = setInterval(sendUserPresence, 5000);
     refreshMessages = setInterval(getMessages, 3000);
     refreshParticipants = setInterval(getParticipants, 10000);
@@ -172,6 +173,14 @@ function selectUser (userClicked) {
         privateUser = document.querySelector(".participant.selected h2").innerHTML;
         document.querySelector(".footer h4").innerHTML = `Enviando para ${privateUser} (reservadamente)`;
     }
+    if (document.querySelector(".all-participants.selected") !== null && document.querySelector(".private.selected") !== null) {
+        document.querySelector(".private.selected").classList.remove("selected");
+        document.querySelector(".public").classList.add("selected");
+    }
+    if (document.querySelector(".participant.selected") !== null && document.querySelector(".public.selected") !== null) {
+        document.querySelector(".public.selected").classList.remove("selected");
+        document.querySelector(".private").classList.add("selected");
+    }
     
 }
 
@@ -213,7 +222,7 @@ function outOfRoom (absence) {
         document.querySelector(".autentication-screen.loading h2").innerHTML = `Você foi desconectado.<br>Retornando a tela de login`;
         setTimeout(() => {
             window.location.reload()
-            }, 3000)
+        }, 3000)
     }
 }
 document.querySelector(".write-message").addEventListener("keypress", function(e) {
@@ -221,4 +230,16 @@ document.querySelector(".write-message").addEventListener("keypress", function(e
         e.preventDefault();
         document.querySelector(".send-message-button").click();
     }
-  });
+});
+
+function logOut () {
+    rotateInterval = setInterval(rotateImg, 150);
+    document.querySelector(".options-privacy-messages").classList.add("locked");
+    document.querySelector(".autentication-screen").classList.remove("autenticaded");
+    document.querySelector(".autentication-screen").classList.add("loading");
+    document.querySelector(".chat-screen").classList.add("locked");
+    document.querySelector(".autentication-screen.loading h2").innerHTML = `Saindo...`;
+    setTimeout(() => {
+        window.location.reload()
+    }, 3000)
+}

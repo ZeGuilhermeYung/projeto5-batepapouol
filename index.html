@@ -23,7 +23,11 @@
     <div class="chat-screen locked">
         <div class="header">
             <img src="./midia/UOL-logo.png" alt="logo do bate-papo da UOL">
-            <ion-icon name="people" onclick="openSideMenu(); getParticipants()"></ion-icon>
+            <h4></h4>
+            <div onclick="openSideMenu(); getParticipants()">
+                <ion-icon name="people"></ion-icon>
+                <ion-icon name="people-outline"></ion-icon>
+            </div>   
         </div>
         <div class="chat"></div>
         <div class="footer">
@@ -31,7 +35,10 @@
                 <textarea class="write-message" type="text" name="message" placeholder="Escreva aqui..."></textarea>
                 <h4></h4>
             </div>
-            <ion-icon class="send-message-button" name="paper-plane-outline" onclick="sendMessage();"></ion-icon>
+            <div class="send-message-button" onclick="sendMessage();">
+                <ion-icon name="paper-plane-outline"></ion-icon>
+                <ion-icon name="paper-plane"></ion-icon>
+            </div>
         </div>
     </div>
     <div class="options-privacy-messages locked">
@@ -46,6 +53,7 @@
                 <div class="visibility public selected" onclick="selectPrivacy(this);"><ion-icon name="lock-open"></ion-icon><h2>Público</h2><ion-icon class="mark-privacy" name="checkmark"></ion-icon></div>
                 <div class="visibility private" onclick="selectPrivacy(this);"><ion-icon name="lock-closed"></ion-icon><h2>Reservadamente</h2><ion-icon class="mark-privacy" name="checkmark"></ion-icon></div>
             </div>
+            <div class="log-out" onclick="logOut()"><h1>Log out</h1><ion-icon name="log-out"></ion-icon></div>
         </div>   
     </div>
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
