@@ -171,6 +171,10 @@ strong {
     font-size: 45px;
     cursor: pointer;
 }
+.header ion-icon:hover {
+    color: #202020;
+    transition: all 0.3s ease-in-out;
+}
 .header ion-icon:last-child {
     display: none;
 }
@@ -267,6 +271,10 @@ strong {
     color: #000000;
     font-size: 32px;
     cursor: pointer;
+}
+.footer ion-icon:hover {
+    color: #202020;
+    transition: all 0.3s ease-in-out;
 }
 .footer ion-icon:last-child {
     display: none;
