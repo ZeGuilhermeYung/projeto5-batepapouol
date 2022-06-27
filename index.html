@@ -27,8 +27,11 @@
         </div>
         <div class="chat"></div>
         <div class="footer">
-            <input class="write-message" type="text" name="message" placeholder="Escreva aqui...">
-            <ion-icon name="paper-plane-outline" onclick="sendMessage();"></ion-icon>
+            <div>
+                <textarea class="write-message" type="text" name="message" placeholder="Escreva aqui..."></textarea>
+                <h4></h4>
+            </div>
+            <ion-icon class="send-message-button" name="paper-plane-outline" onclick="sendMessage();"></ion-icon>
         </div>
     </div>
     <div class="options-privacy-messages locked">
@@ -36,7 +39,7 @@
         <div class="side-options-menu">
             <h1>Escolha um contato<br>para enviar mensagem:</h1>
             <div class="online-users">
-                <div class="all-participants selected" onclick="selectUser(this);"><ion-icon name="people"></ion-icon><h2>Todos</h2><ion-icon class="mark-user" name="checkmark"></ion-icon></div>
+                <div class="all-participants selected" name="Todos" onclick="selectUser(this);"><ion-icon name="people"></ion-icon><h2>Todos</h2><ion-icon class="mark-user" name="checkmark"></ion-icon></div>
             </div>
             <h1>Escolha a visibilidade:</h1> 
             <div class="privacy-message-options">

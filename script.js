@@ -108,18 +108,18 @@ function displayParticipants (allParticipants) {
     if (document.querySelector(".participant.selected") != undefined) {
         privateSelected = document.querySelector(".participant.selected h2").innerHTML;
         document.querySelector(".online-users").innerHTML = `
-        <div class="all-participants" onclick="selectUser(this);">
+        <div class="all-participants" name="Todos" onclick="selectUser(this);">
             <ion-icon name="people"></ion-icon><h2>Todos</h2>
             <ion-icon class="mark-user" name="checkmark"></ion-icon>
         </div>
-        <div class="participant selected" onclick="selectUser(this);">
+        <div class="participant selected" name="${privateSelected}" onclick="selectUser(this);">
             <ion-icon name="person-circle"></ion-icon><h2>${privateSelected}</h2>
             <ion-icon class="mark-user" name="checkmark"></ion-icon>
         </div>`;
         for (let i = 0; i < allParticipants.data.length; i++) {
             if ((allParticipants.data[i].name != userName.name) && (privateSelected != allParticipants.data[i].name)) {    
                 document.querySelector(".online-users").innerHTML += `
-                <div class="participant" onclick="selectUser(this);">
+                <div class="participant" name="${allParticipants.data[i].name}" onclick="selectUser(this);">
                     <ion-icon name="person-circle"></ion-icon><h2>${allParticipants.data[i].name}</h2>
                     <ion-icon class="mark-user" name="checkmark"></ion-icon>
                 </div>`;
@@ -127,14 +127,14 @@ function displayParticipants (allParticipants) {
         }
     } else {
         document.querySelector(".online-users").innerHTML = `
-        <div class="all-participants selected" onclick="selectUser(this);">
+        <div class="all-participants selected" name="Todos" onclick="selectUser(this);">
             <ion-icon name="people"></ion-icon><h2>Todos</h2>
             <ion-icon class="mark-user" name="checkmark"></ion-icon>
         </div>`;
         for (let i = 0; i < allParticipants.data.length; i++) {
             if (allParticipants.data[i].name != userName.name) {    
                 document.querySelector(".online-users").innerHTML += `
-                <div class="participant" onclick="selectUser(this);">
+                <div class="participant" name="${allParticipants.data[i].name}" onclick="selectUser(this);">
                     <ion-icon name="person-circle"></ion-icon><h2>${allParticipants.data[i].name}</h2>
                     <ion-icon class="mark-user" name="checkmark"></ion-icon>
                 </div>`;
@@ -160,6 +160,13 @@ function selectUser (userClicked) {
         document.querySelector(".participant.selected").classList.remove("selected");
     }
     userClicked.classList.add("selected");
+    if (document.querySelector(".all-participants.selected") !== null) {
+        document.querySelector(".footer h4").innerHTML = "";
+    } else {
+        privateUser = document.querySelector(".participant.selected h2").innerHTML;
+        document.querySelector(".footer h4").innerHTML = `Enviando para ${privateUser} (reservadamente)`;
+    }
+    
 }
 
 function selectPrivacy (privacyClicked) {
@@ -201,3 +208,9 @@ function outOfRoom (absence) {
             }, 3000)
     }
 }
+document.addEventListener("keypress", function(e) {
+    if(e.key === "Enter") {
+        e.preventDefault();
+        document.querySelector(".send-message-button").click();
+    }
+  });

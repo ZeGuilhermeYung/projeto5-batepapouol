@@ -30,6 +30,12 @@ h3 {
     line-height: 20px;
     color: #000000;
 }
+h4 {
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 25px;
+    color: #505050;
+}
 em {
     color: #AAAAAA;
     margin-right: 10px;
@@ -208,21 +214,38 @@ strong {
     left: 0;
     box-sizing: border-box;
 }
+.footer > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
 .write-message {
     width: calc(100vw - 82px);
-    height: 30px;
+    height: 40px;
+    max-height: 60px;
     color: #000000;
     font-weight: 400;
     font-size: 18px;
     line-height: 21px;
+    resize: none;
     border: none;
     display: flex;
     align-items: center;
 }
 .write-message::placeholder {
+    font-family: 'Roboto';
     font-style: italic;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 25px;
+    color: #000000;
+    display: flex;
+    align-items: center;
     border: none;
     outline: none;
+}
+.write-message::-webkit-scrollbar {
+    display: none;
 }
 .write-message:focus {
     outline: none;
